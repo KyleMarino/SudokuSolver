@@ -1,3 +1,4 @@
+package Objects;
 import java.util.ArrayList;
 
 import Exceptions.ValueNotSetException;
@@ -40,11 +41,16 @@ public class SudokuSquare {
 	}
 	
 	public void eliminatePossibility(int rValue){
+		int index = -1;
 		//Removes a possibility from the list of possibilities.
 		for(Integer i : possibilities){
 			if (i.intValue() == rValue){
-				possibilities.remove(possibilities.indexOf(i));
+				index = possibilities.indexOf(i);
 			}
+		}
+		//Avoid ConcurrentModificationException
+		if(index != -1){
+			possibilities.remove(index);
 		}
 		//Checks to see if there is only one possibility left
 		if(possibilities.size() == 1){
